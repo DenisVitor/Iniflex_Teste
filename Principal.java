@@ -16,17 +16,16 @@ import Iniflex_Teste.funcionario.Funcionario;
 public class Principal {
     public static void main(String[] args) {
         List<Funcionario> funcionarios = inserirFuncionarios();
-        imprimirFuncionarios(funcionarios);
+        Funcionarios(funcionarios);
         removerFuncionario(funcionarios, "João");
         aumentarSalarios(funcionarios, new BigDecimal("0.10"));
-        imprimirFuncionariosPorFuncao(funcionarios);
-        imprimirAniversariantesMes(funcionarios, 10);
-        imprimirAniversariantesMes(funcionarios, 12);
-        System.out.println("Funcionário mais velho: " + funcionarioMaisVelho(funcionarios));
-        imprimirFuncionariosOrdemAlfabetica(funcionarios);
-        System.out.println(
-                "Total dos salários dos funcionários: " + totalSalarios(funcionarios).toString().replace(".", ","));
-        imprimirSalariosMinimos(funcionarios, new BigDecimal("1212.00"));
+        FuncionariosPorFuncao(funcionarios);
+        AniversariantesMes(funcionarios, 10);
+        AniversariantesMes(funcionarios, 12);
+        funcionarioMaisVelho(funcionarios);
+        FuncionariosOrdemAlfabetica(funcionarios);
+        totalSalarios(funcionarios);
+        SalariosMinimos(funcionarios, new BigDecimal("1212.00"));
     }
 
     public static List<Funcionario> inserirFuncionarios() {
@@ -46,7 +45,7 @@ public class Principal {
         return funcionarios;
     }
 
-    public static void imprimirFuncionarios(List<Funcionario> funcionarios) {
+    public static void Funcionarios(List<Funcionario> funcionarios) {
         System.out.println("\nFuncionários:");
         funcionarios.forEach(System.out::println);
     }
@@ -67,17 +66,17 @@ public class Principal {
         funcionarios.forEach(System.out::println);
     }
 
-    public static Funcionario funcionarioMaisVelho(List<Funcionario> funcionarios) {
+    public static void funcionarioMaisVelho(List<Funcionario> funcionarios) {
         Funcionario maisVelho = funcionarios.get(0);
         for (Funcionario funcionario : funcionarios) {
             if (funcionario.getDataNascimento().isBefore(maisVelho.getDataNascimento())) {
                 maisVelho = funcionario;
             }
         }
-        return maisVelho;
+        System.out.println("\nO Funcionário mais velho: " + maisVelho);
     }
 
-    public static void imprimirFuncionariosPorFuncao(List<Funcionario> funcionarios) {
+    public static void FuncionariosPorFuncao(List<Funcionario> funcionarios) {
         Map<String, List<Funcionario>> funcionariosPorFuncao = new HashMap<>();
         for (Funcionario funcionario : funcionarios) {
 
@@ -91,7 +90,7 @@ public class Principal {
         });
     }
 
-    public static void imprimirAniversariantesMes(List<Funcionario> funcionarios, int mes) {
+    public static void AniversariantesMes(List<Funcionario> funcionarios, int mes) {
         List<Funcionario> aniversariantes = funcionarios.stream()
                 .filter(funcionario -> funcionario.getDataNascimento().getMonthValue() == mes)
                 .collect(Collectors.toList());
@@ -104,14 +103,14 @@ public class Principal {
         }
     }
 
-    public static void imprimirFuncionariosOrdemAlfabetica(List<Funcionario> funcionarios) {
+    public static void FuncionariosOrdemAlfabetica(List<Funcionario> funcionarios) {
         System.out.println("\nFuncionários em Ordem Alfabética:");
         funcionarios.stream()
                 .sorted(Comparator.comparing(Funcionario::getNome))
                 .forEach(System.out::println);
     }
 
-    public static String totalSalarios(List<Funcionario> funcionarios) {
+    public static void totalSalarios(List<Funcionario> funcionarios) {
         BigDecimal total = BigDecimal.ZERO;
         for (Funcionario funcionario : funcionarios) {
             total = total.add(funcionario.getSalario());
@@ -119,10 +118,10 @@ public class Principal {
         DecimalFormat decimal = new DecimalFormat();
         decimal.setMaximumFractionDigits(2);
         decimal.setGroupingUsed(false);
-        return "R$ " + decimal.format(total);
+        System.out.println("\nTotal do salário de todos os funcionários: R$ " + decimal.format(total));
     }
 
-    public static void imprimirSalariosMinimos(List<Funcionario> funcionarios, BigDecimal salarioMinimo) {
+    public static void SalariosMinimos(List<Funcionario> funcionarios, BigDecimal salarioMinimo) {
         DecimalFormat decimal = new DecimalFormat();
         decimal.setMaximumFractionDigits(2);
         System.out.println(
