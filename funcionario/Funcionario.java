@@ -1,8 +1,9 @@
 package Iniflex_Teste.funcionario;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.Currency;
 
 import Iniflex_Teste.pessoa.Pessoa;
 
@@ -30,9 +31,9 @@ public class Funcionario extends Pessoa {
 
     @Override
     public String toString() {
-        DecimalFormat decimal = new DecimalFormat();
-        decimal.setMaximumFractionDigits(2);
-        decimal.setGroupingUsed(false);
-        return super.toString() + ", Salário: R$ " + decimal.format(salario).replace(".", ",") + ", Função: " + funcao;
+        NumberFormat num = NumberFormat.getCurrencyInstance();
+        Currency curr = Currency.getInstance("BRL");
+        num.setCurrency(curr);
+        return super.toString() + ", Salário: " + num.format(salario) + ", Função: " + funcao;
     }
 }

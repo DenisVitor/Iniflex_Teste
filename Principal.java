@@ -3,9 +3,11 @@ package Iniflex_Teste;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,10 +117,10 @@ public class Principal {
         for (Funcionario funcionario : funcionarios) {
             total = total.add(funcionario.getSalario());
         }
-        DecimalFormat decimal = new DecimalFormat();
-        decimal.setMaximumFractionDigits(2);
-        decimal.setGroupingUsed(false);
-        System.out.println("\nTotal do salário de todos os funcionários: R$ " + decimal.format(total));
+        NumberFormat num = NumberFormat.getCurrencyInstance();
+        Currency curr = Currency.getInstance("BRL");
+        num.setCurrency(curr);
+        System.out.println("\nTotal do salário de todos os funcionários: " + num.format(total));
     }
 
     public static void SalariosMinimos(List<Funcionario> funcionarios, BigDecimal salarioMinimo) {
