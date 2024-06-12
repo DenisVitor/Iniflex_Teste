@@ -75,7 +75,8 @@ public class Principal {
                 maisVelho = funcionario;
             }
         }
-        System.out.println("\nO Funcionário mais velho: " + maisVelho);
+        System.out.println("\nO Funcionário mais velho: " + maisVelho.getNome()
+                + ", " + (LocalDate.now().getYear() - maisVelho.getDataNascimento().getYear()) + " anos");
     }
 
     public static void FuncionariosPorFuncao(List<Funcionario> funcionarios) {
